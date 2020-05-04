@@ -1,0 +1,29 @@
+<div>
+    Nombre:
+    <input type="text" name="name" [(ngModel)]="process.name" >
+    Rafaga de CPU:
+    <input type="number" name="cpuBurst" [(ngModel)]="process.cpuBurst" >
+    Tiempo de Llegada:
+    <input type="number" name="arrivalTime" [(ngModel)]="process.arrivalTime" >
+    <button type="submit" (click) = 'addProcess(process)'>Agregar Proceso</button>
+</div>
+
+<div>
+    Tabla:
+    <table mat-table>
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Rafaga de CPU</th>
+                <th>Tiempo de Llegada</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor= 'let process of processList'>
+                <td>{{process.name}}</td>
+                <td>{{process.cpuBurst}}</td>
+                <td>{{process.arrivalTime}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
