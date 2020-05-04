@@ -27,3 +27,27 @@
         </tbody>
     </table>
 </div>
+
+<div>
+    <button (click) = 'fifo()'>Aplicar fifo </button>
+</div>
+
+<div *ngIf = is_clicked>
+    Tabla de Resultados:
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>TE</th>
+                <th>TR</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor= 'let proceso of processList'>
+                <th>{{proceso.name}}</th>
+                <th>{{proceso.standbyTime}}</th>
+                <th>{{proceso.returnTime}}</th>
+            </tr>
+        </tbody>
+    </table>
+</div>
