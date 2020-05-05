@@ -1,8 +1,18 @@
 version: '3.4'
 
 services:
-  algoritmoplanificacionfifo:
-    image: algoritmoplanificacionfifo
-    build:
-      context: .
-      dockerfile: Dockerfile
+  client-angular:
+    image: algoritmofifo
+    build: .
+    command: ng serve /app/
+    volumes:
+      - .:/app  
+    ports:
+      - 4200:4200
+      - 49153:49153
+      - 9876:9876
+      - 49152:49152
+
+
+
+
