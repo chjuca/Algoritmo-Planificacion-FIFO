@@ -4,7 +4,7 @@ services:
   client-angular:
     image: algoritmofifo
     build: .
-    command: ng serve /app/
+    command: ng serve --host 0.0.0.0
     volumes:
       - .:/app  
     ports:
