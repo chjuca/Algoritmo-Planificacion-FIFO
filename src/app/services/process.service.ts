@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Process } from '../interfaces/process.interface';
+import { TEMPORARY_NAME } from '@angular/compiler/src/render3/view/util';
+import { templateJitUrl } from '@angular/compiler';
 
 @Injectable({
   providedIn: 'root'
@@ -8,20 +10,20 @@ export class ProcessService {
 
    // lista de Procesos para probar algoritmo con tiempo muerto no es necesario, sirve para probar codigo mas rapido
 
-  // processList = [ {name: 'P1', cpuBurst: 3 , arrivalTime: 3, standbyTime : 0, returnTime: 0},
-  //                 {name: 'P2', cpuBurst: 4 , arrivalTime: 1},
-  //                 {name: 'P3', cpuBurst: 2 , arrivalTime: 5}
-  //               ];
+  processList = [ {name: 'P1', cpuBurst: 3 , arrivalTime: 3, standbyTime : 0, returnTime: 0},
+                  {name: 'P2', cpuBurst: 4 , arrivalTime: 1, standbyTime : 0, returnTime: 0},
+                  {name: 'P3', cpuBurst: 2 , arrivalTime: 5, standbyTime : 0, returnTime: 0}
+                ];
 
   // lista de Procesos para probar algoritmo sin tiempo muerto no es necesario, sirve para probar codigo mas rapido
 
-  // processList = [ {name: 'P1', cpuBurst: 3 , arrivalTime: 2, , standbyTime : 0, returnTime: 0},
+  // processList = [ {name: 'P1', cpuBurst: 3 , arrivalTime: 2, standbyTime : 0, returnTime: 0},
   //                 {name: 'P2', cpuBurst: 1 , arrivalTime: 4},
   //                 {name: 'P3', cpuBurst: 3 , arrivalTime: 0},
   //                 {name: 'P4', cpuBurst: 4 , arrivalTime: 1},
   //                 {name: 'P5', cpuBurst: 2 , arrivalTime: 3}
   //               ];
-  processList = [];
+  // processList = [];
 
   constructor() { }
 
@@ -29,7 +31,8 @@ export class ProcessService {
     addProcess(process: Process) {
       process.standbyTime = 0;
       process.returnTime = 0;
-      this.processList.push({name: process.name, cpuBurst: process.cpuBurst, arrivalTime: process.arrivalTime});
+      this.processList.push({name: process.name, cpuBurst: process.cpuBurst, arrivalTime: process.arrivalTime,
+        standbyTime: process.arrivalTime, returnTime: process.returnTime});
     }
 
     getProcess(): Array<any> {
@@ -62,10 +65,35 @@ export class ProcessService {
       this.processList[i].returnTime = this.processList[i].standbyTime + this.processList[i].cpuBurst + this.processList[0].arrivalTime;
       this.processList[i].standbyTime -= this.processList[i].arrivalTime;
       this.processList[i].standbyTime += this.processList[0].arrivalTime;
+      if (this.processList[i].standbyTime < 0) {
+          this.processList[i].standbyTime = this.processList[i].arrivalTime;
+          this.processList[i].returnTime = this.processList[i].standbyTime + this.processList[i].cpuBurst;
+      }
     }
     // console.log(this.processList);  // presentamos la lista y los valores calculados
     this.sortListbyName();          // Ordenamos la lista por orden nombre
     return this.processList;
   }
 
+  // Metodo para calcular el promedio del tiempo de Espera
+  avgTE(): number {
+    const te = [];
+    for (const objProcess of this.processList) {
+      te.push(objProcess.standbyTime);
+    }
+    const sum =  te.reduce((previous, current) => current += previous);
+    const avg = sum / this.processList.length;
+    return avg;
+  }
+
+    // Metodo para calcular el promedio del tiempo de Respuesta
+  avgTR(): number {
+    const tr = [];
+    for (const objProcess of this.processList) {
+      tr.push(objProcess.returnTime);
+    }
+    const sum =  tr.reduce((previous, current) => current += previous);
+    const avg = sum / this.processList.length;
+    return avg;
+  }
 }

@@ -10,6 +10,8 @@ import { Component, OnInit } from '@angular/core';
 export class ProcessComponent implements OnInit {
 
   process = {} as Process;
+  avgTE: string;
+  avgTR: string;
   processList = [];
 
   // Bandera para mostrar la tabla de resultados;
@@ -29,8 +31,9 @@ export class ProcessComponent implements OnInit {
 
   // Metodo para aplicar el algoritmo FIFO a la lista de Objetos
   fifo() {
-    console.log(this.processList);
-    console.log(this.processService.fifo());
+    this.processService.fifo();
+    this.avgTE = this.processService.avgTE().toFixed(2);
+    this.avgTR = this.processService.avgTR().toFixed(2);
     this.is_clicked = true;         // Cambiamos de valor a la bandera para que presente la tabla de resultados
   }
 
