@@ -1,24 +1,28 @@
-<div>
+<div class="card col-10">
     <!-- Guardar valores del proceso -->
+    <br>
     Nombre:
-    <input type="text" name="name" [(ngModel)]="process.name" >
+    <input type="text" name="name" class="form-control" placeholder="Ingrese Nombre del Proceso" [(ngModel)]="process.name" >
+    <br>
     Rafaga de CPU:
-    <input type="number" name="cpuBurst" [(ngModel)]="process.cpuBurst" >
+    <input type="number" name="cpuBurst"  class="form-control" placeholder="Ingrese Rafaga de CPU"  [(ngModel)]="process.cpuBurst" >
+    <br>
     Tiempo de Llegada:
-    <input type="number" name="arrivalTime" [(ngModel)]="process.arrivalTime" >
-    <button type="submit" (click) = 'addProcess(process)'>Agregar Proceso</button>
+    <input type="number" name="arrivalTime"  class="form-control" placeholder="Ingrese Tiempo de Llegada"  [(ngModel)]="process.arrivalTime" >
+    <br>
+    <button type="submit" class="btn btn-secondary" (click) = 'addProcess(process)'>Agregar Proceso</button>
     <!-- Guardar valores del proceso -->
+    <br>
 </div>
 <br>
-<div>
+<div class="card-body">
     <!-- Mostramos valores en la tabla, conforme se vayan ingresando -->
-    Tabla:
-    <table mat-table>
-        <thead>
+    <table class="table table-sm">
+        <thead class="thead-light">
             <tr>
-                <th>Nombre</th>
-                <th>Rafaga de CPU</th>
-                <th>Tiempo de Llegada</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Rafaga de CPU</th>
+                <th scope="col">Tiempo de Llegada</th>
             </tr>
         </thead>
         <tbody>
@@ -33,25 +37,29 @@
 </div>
 <br>
 <div>
-    <button (click) = 'fifo()'>Aplicar fifo </button>
+    <button class="btn btn-danger" (click) = 'fifo()'>Aplicar Algoritmo </button>
 </div>
 <br>
 <!-- Mostramos valores calculados en la tabla is_clicked es la bandera que estaba en el archivo .ts, dependiendo del estado esta seccion se muestra o no -->
-<div *ngIf = is_clicked>
-    Tabla de Resultados:
-    <table>
-        <thead>
+<div class="card-body" *ngIf = is_clicked>
+    <table class="table table-sm">
+        <thead class="thead-light">
             <tr>
-                <th>Nombre</th>
-                <th>TE</th>
-                <th>TR</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">TE</th>
+                <th scope="col">TR</th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor= 'let proceso of processList'>
-                <th>{{proceso.name}}</th>
-                <th>{{proceso.standbyTime}}</th>
-                <th>{{proceso.returnTime}}</th>
+                <th scope="row">{{proceso.name}}</th>
+                <td>{{proceso.standbyTime}}</td>
+                <td>{{proceso.returnTime}}</td>
+            </tr>
+            <tr>
+                <th>Promedio</th>
+                <td>{{avgTE}}</td>
+                <td>{{avgTR}}</td>
             </tr>
         </tbody>
     </table>
