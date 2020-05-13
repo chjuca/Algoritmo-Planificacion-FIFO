@@ -2,15 +2,18 @@
     <!-- Guardar valores del proceso -->
     <br>
     Nombre:
-    <input type="text" name="name" class="form-control" placeholder="Ingrese Nombre del Proceso" [(ngModel)]="process.name" >
+    <input type="text" name="name" class="form-control" placeholder="Ingrese Nombre del Proceso"
+        [(ngModel)]="process.name">
     <br>
     Rafaga de CPU:
-    <input type="number" name="cpuBurst"  class="form-control" placeholder="Ingrese Rafaga de CPU"  [(ngModel)]="process.cpuBurst" >
+    <input type="number" name="cpuBurst" class="form-control" placeholder="Ingrese Rafaga de CPU"
+        [(ngModel)]="process.cpuBurst">
     <br>
     Tiempo de Llegada:
-    <input type="number" name="arrivalTime"  class="form-control" placeholder="Ingrese Tiempo de Llegada"  [(ngModel)]="process.arrivalTime" >
+    <input type="number" name="arrivalTime" class="form-control" placeholder="Ingrese Tiempo de Llegada"
+        [(ngModel)]="process.arrivalTime">
     <br>
-    <button type="submit" class="btn btn-secondary" (click) = 'addProcess(process)'>Agregar Proceso</button>
+    <button type="submit" class="btn btn-secondary" (click)='addProcess(process)'>Agregar Proceso</button>
     <!-- Guardar valores del proceso -->
     <br>
 </div>
@@ -26,22 +29,47 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor= 'let process of processList'>
+            <tr *ngFor='let process of processList'>
                 <td>{{process.name}}</td>
                 <td>{{process.cpuBurst}}</td>
                 <td>{{process.arrivalTime}}</td>
             </tr>
         </tbody>
     </table>
-        <!-- Mostramos valores en la tabla, conforme se vayan ingresando -->
+    <!-- Mostramos valores en la tabla, conforme se vayan ingresando -->
 </div>
 <br>
 <div>
-    <button class="btn btn-danger" (click) = 'fifo()'>Aplicar Algoritmo </button>
+    <button class="btn btn-danger" (click)='fifo()'>Aplicar Algoritmo </button>
 </div>
 <br>
 <!-- Mostramos valores calculados en la tabla is_clicked es la bandera que estaba en el archivo .ts, dependiendo del estado esta seccion se muestra o no -->
-<div class="card-body" *ngIf = is_clicked>
+<div class="card-body" *ngIf=is_clicked>
+    <!-- Grafica -->
+
+
+
+    <div class="row">
+        <div>
+            <p class="text-right small pb-0">0</p>
+        </div>
+        <div  class="col-sm-1 pl-0 pr-0" *ngIf="process0.arrivalTime !== 0">
+            <p class="text-right small pb-0">{{process0.arrivalTime}}</p>
+            <p class="text-center pt-0" style="border: 1px solid black; background-color: gray"> ///// </p>
+        </div>
+        <div class="col-sm-1 pl-0 pr-0" *ngFor='let proceso of processList'>
+            <div>
+                <p class="text-right small pb-0">{{proceso.returnTime}}</p>
+                <p class="text-center pt-0" style="border: 1px solid black">{{proceso.name}}</p>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Grafica -->
+
+
+
     <table class="table table-sm">
         <thead class="thead-light">
             <tr>
@@ -51,7 +79,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor= 'let proceso of processList'>
+            <tr *ngFor='let proceso of processList'>
                 <th scope="row">{{proceso.name}}</th>
                 <td>{{proceso.standbyTime}}</td>
                 <td>{{proceso.returnTime}}</td>

@@ -23,6 +23,9 @@ export class ProcessService {
   //                 {name: 'P4', cpuBurst: 4 , arrivalTime: 1},
   //                 {name: 'P5', cpuBurst: 2 , arrivalTime: 3}
   //               ];
+
+  processListGraph = [];
+
   // processList = [];
 
   constructor() { }
@@ -71,7 +74,8 @@ export class ProcessService {
       }
     }
     // console.log(this.processList);  // presentamos la lista y los valores calculados
-    this.sortListbyName();          // Ordenamos la lista por orden nombre
+    // console.log(this.processListGraph );
+    //this.sortListbyName();          // Ordenamos la lista por orden nombre
     return this.processList;
   }
 
