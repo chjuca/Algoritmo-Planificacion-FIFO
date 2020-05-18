@@ -14,12 +14,11 @@ RUN apt update
 # Instalamos angular cli en nuestra imágen
 RUN npm install -g @angular/cli@8
 
-RUN mkdir /app
+RUN mkdir /project
 
-COPY . /app/
+COPY . /project/
 
-WORKDIR /app
-
+WORKDIR /project
 
 RUN npm install --yes
 

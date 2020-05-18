@@ -1,12 +1,12 @@
 version: '3.4'
 
 services:
-  client-angular_2:
-    image: algoritmofifo2
+  client-angular:
+    image: algoritmofifo
     build: .
     command: ng serve --host 0.0.0.0
     volumes:
-      - .:/app  
+      - .:/project  
     ports:
       - 4200:4200
       - 49153:49153
