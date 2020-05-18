@@ -1,8 +1,8 @@
 version: '3.4'
 
 services:
-  client-angular:
-    image: algoritmofifo
+  client-angular_2:
+    image: algoritmofifo2
     build: .
     command: ng serve --host 0.0.0.0
     volumes:
