@@ -3,6 +3,7 @@ version: '3.4'
 services:
   client-angular:
     image: algoritmofifo
+    container_name: project_container
     build: .
     command: ng serve --host 0.0.0.0
     volumes:
