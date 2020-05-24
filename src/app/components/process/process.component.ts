@@ -1,8 +1,7 @@
 import { ProcessService } from './../../services/process.service';
 import { Process } from './../../interfaces/process.interface';
 import { Component, OnInit } from '@angular/core';
-import { isNumber } from 'util';
-import { cpus } from 'os';
+
 
 @Component({
   selector: 'app-process',

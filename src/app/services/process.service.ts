@@ -37,10 +37,7 @@ export class ProcessService {
   //               ];
 
 
-  processListGraph = [];
-
   processList = [];
-  process: Process;
 
 
   constructor() { }
@@ -156,20 +153,20 @@ export class ProcessService {
   }
 
   processGraph() {
-
+    var processListGraph = [];
     let previousProcessReturn = 0;
     let previousProcessArrivalTime = 0;
     for (let process of this.processList) {
       if (process.arrivalTime <= previousProcessReturn) {
-        this.processListGraph.push(process);
+        processListGraph.push(process);
       } else {
-        this.processListGraph.push({ name: '///', cpuBurst: 0, arrivalTime: 0, standbyTime: 0, returnTime: process.arrivalTime });
-        this.processListGraph.push(process);
+        processListGraph.push({ name: '///', cpuBurst: 0, arrivalTime: 0, standbyTime: 0, returnTime: process.arrivalTime });
+        processListGraph.push(process);
       }
       previousProcessReturn = process.returnTime;
       previousProcessArrivalTime = process.arrivalTime;
     }
-    console.log(this.processListGraph);
-    return this.processListGraph;
+    console.log(processListGraph);
+    return processListGraph;
   }
 }
