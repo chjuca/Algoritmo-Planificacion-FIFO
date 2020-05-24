@@ -25,30 +25,48 @@ export class ProcessService {
   //   { name: 'P5', cpuBurst: 1, arrivalTime: 15, standbyTime: 0, returnTime: 0 },
   // ];
 
+
   // lista de Procesos para probar algoritmo sin tiempo muerto no es necesario, sirve para probar codigo mas rapido
 
-  processList = [ {name: 'P1', cpuBurst: 3 , arrivalTime: 2, standbyTime : 0, returnTime: 0},
-                  {name: 'P2', cpuBurst: 1 , arrivalTime: 4},
-                  {name: 'P3', cpuBurst: 3 , arrivalTime: 0}, // este es 0
-                  {name: 'P4', cpuBurst: 4 , arrivalTime: 1},
-                  {name: 'P5', cpuBurst: 2 , arrivalTime: 3}
-                ];
+  // processList = [ {name: 'P1', cpuBurst: 3 , arrivalTime: 2, standbyTime : 0, returnTime: 0},
+  //                 {name: 'P2', cpuBurst: 1 , arrivalTime: 4, standbyTime: 0, returnTime: 0},
+  //                 {name: 'P3', cpuBurst: 3 , arrivalTime: 0, standbyTime: 0, returnTime: 0}, // este es 0
+  //                 {name: 'P4', cpuBurst: 4 , arrivalTime: 1, standbyTime: 0, returnTime: 0},
+  //                 {name: 'P5', cpuBurst: 2 , arrivalTime: 3, standbyTime: 0, returnTime: 0}
+  //               ];
+
 
   processListGraph = [];
 
-  // processList = [];
+  processList = [];
 
   constructor() { }
 
-  // Metodo para agregar un proceso a la lista
-  addProcess(process: Process) {
-    process.standbyTime = 0;
-    process.returnTime = 0;
-    this.processList.push({
-      name: process.name, cpuBurst: process.cpuBurst, arrivalTime: process.arrivalTime,
-      standbyTime: process.arrivalTime, returnTime: process.returnTime
-    });
-  }
+
+    // Metodo para agregar un proceso a la lista
+    addProcess(process: Process) {
+      process.standbyTime = 0;
+      process.returnTime = 0;
+      this.processList.push({name: process.name, cpuBurst: process.cpuBurst, arrivalTime: process.arrivalTime,
+        standbyTime: process.arrivalTime, returnTime: process.returnTime});
+      process.name = ''; // Limpiar caja de texto 'Nombre'
+      process.cpuBurst = null; // Limpiar caja de texto 'Rafaga de CPU'
+      process.arrivalTime = null; // Limpiar caja de texto 'Tiempo de llegada'
+    }
+
+
+    // Metodo para eliminar un proceso a la lista
+    deleteProcess(process: Process) {
+      var i = this.processList.indexOf(process);
+      this.processList.splice(i, 1);
+    }
+
+    // Metodo para resetear el algoritmo
+    resetFifo(){
+      this.processList.splice(0,this.processList.length);
+      console.log(this.processList);
+    }
+
 
   getProcess(): Array<any> {
     return this.processList;
