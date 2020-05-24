@@ -24,3 +24,15 @@ docker-compose up
 ```
 
 Nota: Para detener el cliente presiona las teclas `Ctrl+C`
+
+### Usando Angular
+
+1. Clonar el repositorio
+
+2. Borrar la carpeta ```package-lock``` que esta en la carpeta raiz
+
+3. En la carpeta raiz del proyecto, abrir un terminal y escribir  ```npm install```
+
+4.Ahora para levantar el proyecto, simplementee escribir ```ng serve``` y el proyecto estara acorriendo en el puerto ```:4200```
+
+Nota: Para detener el cliente presiona las teclas `Ctrl+C`
