@@ -2,31 +2,31 @@
     <div class="container mt-4 mb-4">
         <div class="card col">
             <!-- Guardar valores del proceso -->
-            <br>
-            Nombre:
-            <input type="text" name="name" class="form-control" placeholder="Ingrese Nombre del Proceso"
-                [(ngModel)]="process.name">
-            <br>
-            Rafaga de CPU:
-            <input type="number" name="cpuBurst" class="form-control" placeholder="Ingrese Rafaga de CPU"
-                [(ngModel)]="process.cpuBurst">
-            <br>
-            Tiempo de Llegada:
-            <input type="number" name="arrivalTime" class="form-control" placeholder="Ingrese Tiempo de Llegada"
-                [(ngModel)]="process.arrivalTime">
-            <br>
-            <button type="submit" class="btn btn-secondary" (click)='addProcess(process)'>Agregar Proceso</button>
-            <!-- Guardar valores del proceso -->
-            <br>
+            <form id="formulario" name="formulario" novalidate>
+                Nombre:
+                <input type="text" maxlength="10" name="name" class="form-control" placeholder="Ingrese nombre del proceso"
+                    [(ngModel)]="process.name" required>
+                <br>
+                Rafaga de CPU:
+                <input min="1" type="number" name="cpuBurst" class="form-control" placeholder="Ingrese ráfaga de CPU"
+                    [(ngModel)]="process.cpuBurst" required>
+                <br>
+                Tiempo de llegada:
+                <input min="0" type="number" name="arrivalTime" class="form-control" placeholder="Ingrese tiempo de llegada"
+                    [(ngModel)]="process.arrivalTime" required>
+                <br>
+                <button type="submit" class="btn btn-secondary" (click)='addProcess(process)'>Agregar Proceso</button>
+                <!-- Guardar valores del proceso -->
+                <br>
+            </form>
         </div>
     </div>
 </section>
 
-
 <section id="process-table">
     <div class="container">
         <div class="row">
-            <div class="card-body">
+            <div class="card-body" *ngIf=!is_empty>
                 <!-- Mostramos valores en la tabla, conforme se vayan ingresando -->
                 <table class="table table-sm">
                     <thead class="thead-light">
@@ -41,6 +41,13 @@
                             <td>{{process.name}}</td>
                             <td>{{process.cpuBurst}}</td>
                             <td>{{process.arrivalTime}}</td>
+                            <td>
+                                <button class="btn btn-outline-danger" (click)='deleteProcess(process)'>
+                                    <svg class="bi bi-trash-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7z"/>
+                                    </svg>
+                                </button>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -48,10 +55,11 @@
             </div>
         </div>
         <div class="row justify-content-center">
-            <div class="col-auto">
-                <button class="btn btn-danger" (click)='fifo()'>Aplicar Algoritmo </button>
+            <!-- Mostramos los botones 'aplicar algorimo' y 'nuevo' siempre y cuando la lista de procesos no esté vacía-->
+            <div class="col-auto" *ngIf=!is_empty>
+                <button class="btn btn-success" (click)='fifo()'>Aplicar Algoritmo </button>
+                <button class="btn btn-info ml-3" (click)='resetFifo()'>Nuevo</button>
             </div>
-
         </div>
 
     </div>
@@ -63,7 +71,8 @@
 <section id="grant-chart">
     <div class="card-body" *ngIf=is_clicked>
         <!-- Grafica -->
-        <div class="container mb-4">
+        <!-- Mostramos la grafica y tabla de resultados siempre y cuando la lista de procesos no esté vacía-->
+        <div class="container mb-4" *ngIf=!is_empty>
             <div class="row justify-content-center">
                 
                 <div>
@@ -81,7 +90,7 @@
                 </div>
             </div>
 
-            <div class="row">
+            <div class="row" *ngIf=!is_empty>
                 <!-- Grafica -->
 
 
