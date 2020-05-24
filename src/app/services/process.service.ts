@@ -10,10 +10,12 @@ export class ProcessService {
 
    // lista de Procesos para probar algoritmo con tiempo muerto no es necesario, sirve para probar codigo mas rapido
 
+  /*
   processList = [ {name: 'P1', cpuBurst: 3 , arrivalTime: 3, standbyTime : 0, returnTime: 0},
                   {name: 'P2', cpuBurst: 4 , arrivalTime: 1, standbyTime : 0, returnTime: 0},
                   {name: 'P3', cpuBurst: 2 , arrivalTime: 5, standbyTime : 0, returnTime: 0}
                 ];
+  */
 
   // lista de Procesos para probar algoritmo sin tiempo muerto no es necesario, sirve para probar codigo mas rapido
 
@@ -24,9 +26,10 @@ export class ProcessService {
   //                 {name: 'P5', cpuBurst: 2 , arrivalTime: 3}
   //               ];
 
+
   processListGraph = [];
 
-  // processList = [];
+  processList = [];
 
   constructor() { }
 
@@ -36,6 +39,23 @@ export class ProcessService {
       process.returnTime = 0;
       this.processList.push({name: process.name, cpuBurst: process.cpuBurst, arrivalTime: process.arrivalTime,
         standbyTime: process.arrivalTime, returnTime: process.returnTime});
+      process.name = ''; // Limpiar caja de texto 'Nombre'
+      process.cpuBurst = null; // Limpiar caja de texto 'Rafaga de CPU'
+      process.arrivalTime = null; // Limpiar caja de texto 'Tiempo de llegada'
+    }
+
+
+    // Metodo para eliminar un proceso a la lista
+    deleteProcess(process: Process){ 
+      var i = this.processList.indexOf(process);
+      this.processList.splice(i, 1);
+      
+    }
+    
+    // Metodo para resetear el algoritmo
+    resetFifo(){
+      this.processList.splice(0,this.processList.length);
+      console.log(this.processList);
     }
 
     getProcess(): Array<any> {
