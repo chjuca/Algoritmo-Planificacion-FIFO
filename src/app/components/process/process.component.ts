@@ -14,6 +14,8 @@ export class ProcessComponent implements OnInit {
   avgTE: string;
   avgTR: string;
   processList = [];
+  processListGraph = [];
+
 
   // Bandera para mostrar la tabla de resultados;
   is_clicked = false;
@@ -36,6 +38,7 @@ export class ProcessComponent implements OnInit {
     this.process0 = this.processList[0];
     this.avgTE = this.processService.avgTE().toFixed(2);
     this.avgTR = this.processService.avgTR().toFixed(2);
+    this.processListGraph = this.processService.processGraph();
     this.is_clicked = true;         // Cambiamos de valor a la bandera para que presente la tabla de resultados
   }
 

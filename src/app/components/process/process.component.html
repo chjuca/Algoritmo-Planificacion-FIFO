@@ -45,6 +45,7 @@
 <br>
 <!-- Mostramos valores calculados en la tabla is_clicked es la bandera que estaba en el archivo .ts, dependiendo del estado esta seccion se muestra o no -->
 <div class="card-body" *ngIf=is_clicked>
+
     <!-- Grafica -->
 
 
@@ -53,15 +54,17 @@
         <div>
             <p class="text-right small pb-0">0</p>
         </div>
-        <div  class="col-sm-1 pl-0 pr-0" *ngIf="process0.arrivalTime !== 0">
-            <p class="text-right small pb-0">{{process0.arrivalTime}}</p>
-            <p class="text-center pt-0" style="border: 1px solid black; background-color: gray"> ///// </p>
-        </div>
-        <div class="col-sm-1 pl-0 pr-0" *ngFor='let proceso of processList'>
+        <div class="col-sm-1 pl-0 pr-0" *ngFor='let proceso of processListGraph'>
+            <div *ngIf='proceso.cpuBurst === 0; else whiteBlock'>
+                <p class="text-right small pb-0">{{proceso.returnTime}}</p>
+                <p class="text-center pt-0" style="border: 1px solid black; background-color: grey">{{proceso.name}}</p>
+            </div>
+            <ng-template #whiteBlock>
             <div>
                 <p class="text-right small pb-0">{{proceso.returnTime}}</p>
                 <p class="text-center pt-0" style="border: 1px solid black">{{proceso.name}}</p>
             </div>
+            </ng-template>
         </div>
     </div>
 
