@@ -2,20 +2,37 @@
     <div class="container mt-4 mb-4">
         <div class="card col">
             <!-- Guardar valores del proceso -->
-            <form id="formulario" name="formulario" novalidate>
+            <form #formularioProceso="ngForm">
+                <br>
                 Nombre:
-                <input type="text" maxlength="10" name="name" class="form-control" placeholder="Ingrese nombre del proceso"
-                    [(ngModel)]="process.name" required>
+                <input type="text" autocomplete="off" id="name" name="name" class="form-control" placeholder="Ingrese nombre del proceso *"
+                    [(ngModel)]="process.name" required maxlength="8" #name="ngModel">
+                <div *ngIf="(process.name == '') && (name.touched || name.dirty)" class="alert alert-danger">
+                    <div *ngIf="name.errors.required">
+                        Campo obligatorio
+                    </div>
+                </div>
                 <br>
                 Rafaga de CPU:
-                <input min="1" type="number" name="cpuBurst" class="form-control" placeholder="Ingrese ráfaga de CPU"
-                    [(ngModel)]="process.cpuBurst" required>
+                <input type="number" autocomplete="off" id="cpuBurst" name="cpuBurst" class="form-control" placeholder="Ingrese ráfaga de CPU *"
+                    [(ngModel)]="process.cpuBurst" required min="1" pattern="^[1-9]\d*" #cpuBurst="ngModel">
+                <div *ngIf="cpuBurst.invalid && (cpuBurst.touched || cpuBurst.dirty)" class="alert alert-danger">
+                    <div *ngIf="cpuBurst.errors.required">
+                        Campo obligatorio
+                    </div>
+                    <div *ngIf="validateCpuBurst(process) && (process.cpuBurst != null)">
+                        El valor de rafaga de CPU no puede ser menor que 1
+                    </div>
+                </div>
                 <br>
                 Tiempo de llegada:
-                <input min="0" type="number" name="arrivalTime" class="form-control" placeholder="Ingrese tiempo de llegada"
-                    [(ngModel)]="process.arrivalTime" required>
+                <input type="number" id="arrivalTime" name="arrivalTime" class="form-control" placeholder="Ingrese tiempo de llegada"
+                    [(ngModel)]="process.arrivalTime" min="0" pattern="^[0-9]+" #arrivalTime="ngModel">
+                <div *ngIf="validateArrivalTime(process) && (arrivalTime.dirty || arrivalTime.touched)" class="alert alert-danger">
+                    El valor de tiempo de llegada no puede ser menor que 0
+                </div>
                 <br>
-                <button type="submit" class="btn btn-secondary" (click)='addProcess(process)'>Agregar Proceso</button>
+                <button type="submit" class="btn btn-secondary" [disabled]="!formularioProceso.form.valid"(click)='addProcess(process)'>Agregar proceso</button>
                 <!-- Guardar valores del proceso -->
                 <br>
             </form>

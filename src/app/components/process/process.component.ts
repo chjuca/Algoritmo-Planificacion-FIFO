@@ -1,6 +1,8 @@
 import { ProcessService } from './../../services/process.service';
 import { Process } from './../../interfaces/process.interface';
 import { Component, OnInit } from '@angular/core';
+import { isNumber } from 'util';
+import { cpus } from 'os';
 
 @Component({
   selector: 'app-process',
@@ -19,7 +21,7 @@ export class ProcessComponent implements OnInit {
 
   is_clicked = false; // Bandera para mostrar la tabla de resultados;
   is_empty = true; // Bandera para ocultar botones, grafica y tabla de resultados;
-
+ 
 
   constructor(public processService: ProcessService) { }
 
@@ -47,6 +49,44 @@ export class ProcessComponent implements OnInit {
     }
   }
 
+  /*
+  validateRepeatedProcess(name: string): boolean{
+    var val = false;
+    for (let index_process = 0; index_process < this.processList.length; index_process++) {
+      if(name == this.processList[index_process].name){
+        val = true;
+      }
+    }
+    console.log(val);
+    return val;
+  }
+  */
+  /*
+  validateIsInteger(process:Process){
+    var r = false;
+    if (isNumber(process.cpuBurst)){
+       r = true;
+    }
+    return r;
+  }
+  */
+
+  validateCpuBurst(process: Process): boolean{
+    var bol = false
+    if (process.cpuBurst < 1){
+      bol = true;
+    }
+    return bol;
+  }
+
+  validateArrivalTime(process: Process): boolean{
+    var bol = false
+    if (process.arrivalTime < 0){
+      bol = true;
+    }
+    return bol;
+  }
+
   // Metodo para aplicar el algoritmo FIFO a la lista de Objetos
   fifo() {
 
@@ -65,6 +105,7 @@ export class ProcessComponent implements OnInit {
   resetFifo(){
     this.processService.resetFifo();
     this.is_clicked = false;
+    this.is_empty = true;
   }
 
 }

@@ -2,6 +2,7 @@ import { Process } from './../interfaces/process.interface';
 import { Injectable } from '@angular/core';
 import { TEMPORARY_NAME } from '@angular/compiler/src/render3/view/util';
 import { templateJitUrl } from '@angular/compiler';
+import { isNull } from 'util';
 
 @Injectable({
   providedIn: 'root'
@@ -39,6 +40,8 @@ export class ProcessService {
   processListGraph = [];
 
   processList = [];
+  process: Process;
+
 
   constructor() { }
 
@@ -47,9 +50,14 @@ export class ProcessService {
     addProcess(process: Process) {
       process.standbyTime = 0;
       process.returnTime = 0;
+      // Establecer como tiempo de llegada 0 en caso de no haber ingresado nada en 'Tiempo de llegada'
+      if(process.arrivalTime == undefined){
+        process.arrivalTime = 0; 
+      }
       this.processList.push({name: process.name, cpuBurst: process.cpuBurst, arrivalTime: process.arrivalTime,
         standbyTime: process.arrivalTime, returnTime: process.returnTime});
-      process.name = ''; // Limpiar caja de texto 'Nombre'
+      console.log(this.processList)
+      process.name = null; // Limpiar caja de texto 'Nombre'
       process.cpuBurst = null; // Limpiar caja de texto 'Rafaga de CPU'
       process.arrivalTime = null; // Limpiar caja de texto 'Tiempo de llegada'
     }
@@ -76,7 +84,6 @@ export class ProcessService {
   sortListbyArivalTime() {
     this.processList.sort((a, b) => a.arrivalTime - b.arrivalTime);
   }
-
 
   // Metodo para ordenar la Lista por nombre asc*
   sortListbyName() {
