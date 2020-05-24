@@ -33,7 +33,7 @@
                 </div>
                 <br>
 
-                <button type="submit" class="btn btn-danger" (click)='addProcess(process)'>Agregar Proceso</button>
+                <button type="submit" class="btn btn-danger" [disabled]="!formularioProceso.form.valid" (click)='addProcess(process)'>Agregar Proceso</button>
 
                 <!-- Guardar valores del proceso -->
                 <br>
