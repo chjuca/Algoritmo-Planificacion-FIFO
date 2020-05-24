@@ -15,8 +15,9 @@
                 <input min="0" type="number" name="arrivalTime" class="form-control" placeholder="Ingrese tiempo de llegada"
                     [(ngModel)]="process.arrivalTime" required>
                 <br>
-                <button type="submit" class="btn btn-secondary" (click)='addProcess(process)'>Agregar Proceso</button>
+                <button type="submit" class="btn btn-danger" (click)='addProcess(process)'>Agregar Proceso</button>
                 <!-- Guardar valores del proceso -->
+                <br>
                 <br>
             </form>
         </div>
@@ -56,9 +57,12 @@
         </div>
         <div class="row justify-content-center">
             <!-- Mostramos los botones 'aplicar algorimo' y 'nuevo' siempre y cuando la lista de procesos no esté vacía-->
+
             <div class="col-auto" *ngIf=!is_empty>
                 <button class="btn btn-success" (click)='fifo()'>Aplicar Algoritmo </button>
                 <button class="btn btn-info ml-3" (click)='resetFifo()'>Nuevo</button>
+                <br>
+                <br>
             </div>
         </div>
     </div>
@@ -75,15 +79,17 @@
                 <div>
                     <p class="text-right small pb-0">0</p>
                 </div>
-                <div class="col-sm-1 pl-0 pr-0" *ngIf="process0.arrivalTime !== 0">
-                    <p class="text-right small pb-0">{{process0.arrivalTime}}</p>
-                    <p class="text-center pt-0" style="border: 1px solid black; background-color: gray"> ///// </p>
-                </div>
-                <div class="col-sm-1 pl-0 pr-0" *ngFor='let proceso of processList'>
-                    <div>
+                <div class="col-sm-1 pl-0 pr-0" *ngFor='let proceso of processListGraph'>
+                    <div *ngIf = 'proceso.cpuBurst !== 0; else grayBlock'>
                         <p class="text-right small pb-0">{{proceso.returnTime}}</p>
                         <p class="text-center pt-0" style="border: 1px solid black">{{proceso.name}}</p>
                     </div>
+                    <ng-template #grayBlock>
+                        <div>
+                            <p class="text-right small pb-0">{{proceso.returnTime}}</p>
+                            <p class="text-center pt-0" style="border: 1px solid black; background-color: gray"> ///// </p>
+                        </div>
+                    </ng-template>
                 </div>
             </div>
 
