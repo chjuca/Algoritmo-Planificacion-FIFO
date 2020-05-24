@@ -9,18 +9,21 @@ EXPOSE 9876
 # Puerto e2e
 EXPOSE 49152 
 
-RUN apt update
+RUN apt-get update
+
+RUN mkdir /project
+
+WORKDIR /project
+
+COPY . .
+
+RUN ls -al
 
 # Instalamos angular cli en nuestra imágen
 RUN npm install -g @angular/cli@8
 
-RUN mkdir /project
-
-COPY . /project/
-
-WORKDIR /project
-
 RUN npm install --yes
+
 
 
 
