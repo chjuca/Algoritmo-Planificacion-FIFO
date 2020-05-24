@@ -14,8 +14,9 @@ export class ProcessComponent implements OnInit {
   avgTE: string;
   avgTR: string;
   processList = [];
+  processListGraph = [];
 
-  
+
   is_clicked = false; // Bandera para mostrar la tabla de resultados;
   is_empty = true; // Bandera para ocultar botones, grafica y tabla de resultados;
 
@@ -29,7 +30,7 @@ export class ProcessComponent implements OnInit {
   // Metodo para agregar un proceso a la lista
   addProcess(process: Process) {
     this.processService.addProcess(process);
-    if(this.is_clicked){
+    if(this.is_clicked) {
       this.fifo();
     }
     this.is_empty = false;
@@ -48,6 +49,7 @@ export class ProcessComponent implements OnInit {
 
   // Metodo para aplicar el algoritmo FIFO a la lista de Objetos
   fifo() {
+
     if(this.processList.length == 0){
       this.is_empty = true;
     }else{
