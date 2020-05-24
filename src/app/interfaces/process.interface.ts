@@ -5,3 +5,4 @@ export interface Process {
     standbyTime?: number;  // posible cambio de nombre tmbn
     returnTime?: number; // posible cambio de nombre tmbn
 }
+
