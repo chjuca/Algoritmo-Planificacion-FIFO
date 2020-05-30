@@ -16,11 +16,11 @@
                 Rafaga de CPU:
                 <input type="number" autocomplete="off" id="cpuBurst" name="cpuBurst" class="form-control" placeholder="Ingrese ráfaga de CPU *"
                     [(ngModel)]="process.cpuBurst" required min="1" pattern="^[1-9]\d*" #cpuBurst="ngModel">
-                <div *ngIf="cpuBurst.invalid && (cpuBurst.touched || cpuBurst.dirty)" class="alert alert-danger">
-                    <div *ngIf="cpuBurst.errors.required">
+                <div *ngIf="cpuBurst.invalid && (cpuBurst.touched || cpuBurst.dirty)">
+                    <div *ngIf="cpuBurst.errors.required" class="alert alert-danger">
                         Campo obligatorio
                     </div>
-                    <div *ngIf="validateCpuBurst(process) && (process.cpuBurst != null)">
+                    <div *ngIf="validateCpuBurst(process) && (process.cpuBurst != null)" class="alert alert-danger">
                         El valor de rafaga de CPU no puede ser menor que 1
                     </div>
                 </div>
@@ -33,7 +33,7 @@
                 </div>
                 <br>
 
-                <button type="submit" class="btn btn-danger" [disabled]="!formularioProceso.form.valid" (click)='addProcess(process)'>Agregar Proceso</button>
+                <button type="submit" class="btn btn-dark" [disabled]="!formularioProceso.form.valid" (click)='addProcess(process)'>Agregar Proceso</button>
 
                 <!-- Guardar valores del proceso -->
                 <br>
