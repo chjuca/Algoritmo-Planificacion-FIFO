@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { TEMPORARY_NAME } from '@angular/compiler/src/render3/view/util';
 import { templateJitUrl } from '@angular/compiler';
 import { isNull } from 'util';
+import { NONE_TYPE, INT_TYPE } from '@angular/compiler/src/output/output_ast';
 
 @Injectable({
   providedIn: 'root'
@@ -53,10 +54,11 @@ export class ProcessService {
       }
       this.processList.push({name: process.name, cpuBurst: process.cpuBurst, arrivalTime: process.arrivalTime,
         standbyTime: process.arrivalTime, returnTime: process.returnTime});
-      console.log(this.processList)
+      
       process.name = null; // Limpiar caja de texto 'Nombre'
-      process.cpuBurst = null; // Limpiar caja de texto 'Rafaga de CPU'
+      process.cpuBurst = NaN; // Limpiar caja de texto 'Rafaga de CPU'
       process.arrivalTime = null; // Limpiar caja de texto 'Tiempo de llegada'
+    
     }
 
 
@@ -69,7 +71,6 @@ export class ProcessService {
     // Metodo para resetear el algoritmo
     resetFifo(){
       this.processList.splice(0,this.processList.length);
-      console.log(this.processList);
     }
 
 
